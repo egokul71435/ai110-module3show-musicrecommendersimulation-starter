@@ -21,8 +21,13 @@ Real-world music recommenders like Spotify combine collaborative filtering (anal
 
 - **Song Features**: id, title, artist, genre, mood, energy, tempo_bpm, valence, danceability, acousticness
 - **UserProfile Information**: favorite_genre, favorite_mood, target_energy, likes_acoustic
-- **Scoring**: Each song gets a score based on matches (e.g., genre exact match = high points, energy closeness = normalized difference), weighted by importance (genre 40%, mood 30%, energy/valence 30%).
-- **Recommendation Selection**: Sort songs by score descending and return the top k (e.g., 5).
+- **Algorithm Recipe**: 
+  - +2.0 points for exact genre match.
+  - +1.0 point for exact mood match.
+  - Energy similarity: 1.0 * (1 - |song_energy - target_energy|) (scaled 0-1, rewarding closeness).
+  - Total score = sum of above. (Optional: +0.5 if likes_acoustic and song_acousticness > 0.5.)
+- **Recommendation Selection**: Sort songs by total score descending and return the top k (e.g., 5).
+- **Potential Biases**: This system might over-prioritize genre matches, potentially ignoring great songs that align with mood or energy but differ in genre. It could also favor high-energy tracks if the user's target is moderate, leading to less diverse recommendations.
 
 ---
 
