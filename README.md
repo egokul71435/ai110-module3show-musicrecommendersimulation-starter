@@ -74,6 +74,8 @@ Use this section to document the experiments you ran. For example:
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
 
+#file:example_recommendations.png
+
 ---
 
 ## Limitations and Risks
