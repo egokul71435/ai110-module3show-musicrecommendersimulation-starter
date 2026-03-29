@@ -39,12 +39,47 @@ class Recommender:
         self.songs = songs
 
     def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
-        # TODO: Implement recommendation logic
-        return self.songs[:k]
+        # Score all songs and sort by score descending
+        scored = []
+        for song in self.songs:
+            score, _ = self._score_song(user, song)
+            scored.append((song, score))
+        scored.sort(key=lambda x: x[1], reverse=True)
+        return [song for song, _ in scored[:k]]
 
     def explain_recommendation(self, user: UserProfile, song: Song) -> str:
-        # TODO: Implement explanation logic
-        return "Explanation placeholder"
+        score, reasons = self._score_song(user, song)
+        return f"Score: {score:.2f} | Reasons: {' | '.join(reasons)}"
+
+    def _score_song(self, user: UserProfile, song: Song) -> Tuple[float, List[str]]:
+        """
+        Scores a song based on user preferences and returns the score with reasons.
+        """
+        score = 0.0
+        reasons = []
+
+        # Genre match: +2.0 if exact match
+        if song.genre == user.favorite_genre:
+            score += 2.0
+            reasons.append("genre match (+2.0)")
+
+        # Mood match: +1.0 if exact match
+        if song.mood == user.favorite_mood:
+            score += 1.0
+            reasons.append("mood match (+1.0)")
+
+        # Energy similarity: 1.0 * (1 - |song_energy - target_energy|)
+        energy_diff = abs(song.energy - user.target_energy)
+        energy_score = 1.0 * (1 - energy_diff)
+        score += energy_score
+        reasons.append(f"energy closeness ({energy_score:.2f})")
+
+        # Optional: Acoustic bonus
+        if user.likes_acoustic and song.acousticness > 0.5:
+            score += 0.5
+            reasons.append("acoustic preference (+0.5)")
+
+        return score, reasons
 
 def load_songs(csv_path: str) -> List[Dict]:
     """
