@@ -2,16 +2,7 @@
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+In this project, I built a simple music recommender system that suggests songs based on user preferences for genre, mood, and energy level. It uses a content-based filtering approach, scoring songs by how well they match the user's "vibe" and ranking the top recommendations. I expanded the dataset, tested with various profiles, experimented with scoring weights, and documented biases in a model card. This simulation shows how basic algorithms can create personalized recommendations while highlighting potential fairness issues.
 
 ---
 
@@ -68,27 +59,27 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Experiments You Tried
 
-Use this section to document the experiments you ran. For example:
+I ran several experiments to test and improve the recommender:
 
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+- **Weight Adjustments**: I changed the genre weight from 2.0 to 1.0 and increased energy weight to 2.0. This made energy closeness more important, leading to better matches for energy but sometimes overriding mood preferences, like recommending intense songs for happy users.
+
+- **User Profile Testing**: Tested with profiles like "Happy Pop Lover" (pop, happy, energy 0.8), "Gym Hero" (electronic, energetic, energy 0.9), "Chill Ambient Fan" (ambient, calm, energy 0.2), and "Rock Enthusiast" (rock, energetic, energy 0.7). Results showed good matches for straightforward profiles but surprises like "Gym Hero" appearing for pop fans due to energy similarity.
+
+- **Adversarial Profiles**: Tested conflicting preferences, such as high-energy pop with sad mood or non-existent genres. The system prioritized genre over mood in conflicts and handled invalid inputs by falling back to energy, producing valid but sometimes unexpected recommendations.
+
+- **Dataset Expansion**: Added 8 songs to the original 10, increasing diversity in genres (e.g., reggae, blues) and energy levels. This reduced some biases but highlighted the small catalog's limitations.
+
+These experiments revealed the system's sensitivity to weights and the importance of balanced data.
 
 #file:example_recommendations.png
+
+#file:adversarial_cases.png
 
 ---
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
+This recommender has several limitations. It only works with a small catalog of 18 songs, so recommendations can feel repetitive. It doesn't consider lyrics, cultural context, or user history, focusing only on basic features like genre and energy. The system might unfairly favor certain genres or energy levels due to dataset imbalances, and simple scoring can create filter bubbles where users get stuck with similar songs. In a real app, this could lead to less diverse listening experiences or reinforce biases in music discovery.
 
 ---
 
@@ -98,10 +89,9 @@ Read and complete `model_card.md`:
 
 [**Model Card**](model_card.md)
 
-Write 1 to 2 paragraphs here about what you learned:
+Building this recommender taught me how simple data matching can turn user preferences into predictions. By assigning scores based on genre matches, mood alignment, and energy closeness, the system ranks songs to suggest the best fits. This process mirrors real recommenders by quantifying "vibe" through numerical features, but it shows that even basic rules can feel intelligent when they capture user intent effectively.
 
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
+Bias and unfairness can appear in systems like this when the data or scoring favors certain groups. For example, if the song catalog lacks diversity in genres or energy levels, users with niche tastes get poorer recommendations. The energy filter bubble I discovered disadvantages users wanting very low or high energy songs not well-represented in the data, potentially making the system feel less inclusive. In real-world apps, this could amplify existing inequalities if training data reflects dominant cultural biases, so careful evaluation and dataset expansion are crucial to ensure fairness.
 
 
 ---
