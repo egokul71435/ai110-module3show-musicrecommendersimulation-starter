@@ -63,7 +63,7 @@ I ran several experiments to test and improve the recommender:
 
 - **Weight Adjustments**: I changed the genre weight from 2.0 to 1.0 and increased energy weight to 2.0. This made energy closeness more important, leading to better matches for energy but sometimes overriding mood preferences, like recommending intense songs for happy users.
 
-- **User Profile Testing**: Tested with profiles like "Happy Pop Lover" (pop, happy, energy 0.8), "Gym Hero" (electronic, energetic, energy 0.9), "Chill Ambient Fan" (ambient, calm, energy 0.2), and "Rock Enthusiast" (rock, energetic, energy 0.7). Results showed good matches for straightforward profiles but surprises like "Gym Hero" appearing for pop fans due to energy similarity.
+- **User Profile Testing**: Tested with some profiles like "Happy Pop Lover" (pop, happy, energy 0.8), "Gym Hero" (electronic, energetic, energy 0.9), "Chill Ambient Fan" (ambient, calm, energy 0.2), and "Rock Enthusiast" (rock, energetic, energy 0.7). Results showed good matches for straightforward profiles but surprises like "Gym Hero" appearing for pop fans due to energy similarity.
 
 - **Adversarial Profiles**: Tested conflicting preferences, such as high-energy pop with sad mood or non-existent genres. The system prioritized genre over mood in conflicts and handled invalid inputs by falling back to energy, producing valid but sometimes unexpected recommendations.
 
