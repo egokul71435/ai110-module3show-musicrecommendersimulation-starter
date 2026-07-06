@@ -53,6 +53,8 @@ Run the starter tests with:
 pytest
 ```
 
+`pytest.ini` sets `pythonpath = .` so `src` resolves as a package no matter how you invoke pytest (`pytest` or `python -m pytest`).
+
 You can add more tests in `tests/test_recommender.py`.
 
 ---
@@ -71,9 +73,9 @@ I ran several experiments to test and improve the recommender:
 
 These experiments revealed the system's sensitivity to weights and the importance of balanced data.
 
-#file:example_recommendations.png
+![Example recommendations](example_recommendations.png)
 
-#file:adversarial_cases.png
+![Adversarial cases](adversarial_cases.png)
 
 ---
 
@@ -92,112 +94,4 @@ Read and complete `model_card.md`:
 Building this recommender taught me how simple data matching can turn user preferences into predictions. By assigning scores based on genre matches, mood alignment, and energy closeness, the system ranks songs to suggest the best fits. This process mirrors real recommenders by quantifying "vibe" through numerical features, but it shows that even basic rules can feel intelligent when they capture user intent effectively.
 
 Bias and unfairness can appear in systems like this when the data or scoring favors certain groups. For example, if the song catalog lacks diversity in genres or energy levels, users with niche tastes get poorer recommendations. The energy filter bubble I discovered disadvantages users wanting very low or high energy songs not well-represented in the data, potentially making the system feel less inclusive. In real-world apps, this could amplify existing inequalities if training data reflects dominant cultural biases, so careful evaluation and dataset expansion are crucial to ensure fairness.
-
-
----
-
-## 7. `model_card_template.md`
-
-Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}  
-
-```markdown
-# 🎧 Model Card - Music Recommender Simulation
-
-## 1. Model Name
-
-Give your recommender a name, for example:
-
-> VibeFinder 1.0
-
----
-
-## 2. Intended Use
-
-- What is this system trying to do
-- Who is it for
-
-Example:
-
-> This model suggests 3 to 5 songs from a small catalog based on a user's preferred genre, mood, and energy level. It is for classroom exploration only, not for real users.
-
----
-
-## 3. How It Works (Short Explanation)
-
-Describe your scoring logic in plain language.
-
-- What features of each song does it consider
-- What information about the user does it use
-- How does it turn those into a number
-
-Try to avoid code in this section, treat it like an explanation to a non programmer.
-
----
-
-## 4. Data
-
-Describe your dataset.
-
-- How many songs are in `data/songs.csv`
-- Did you add or remove any songs
-- What kinds of genres or moods are represented
-- Whose taste does this data mostly reflect
-
----
-
-## 5. Strengths
-
-Where does your recommender work well
-
-You can think about:
-- Situations where the top results "felt right"
-- Particular user profiles it served well
-- Simplicity or transparency benefits
-
----
-
-## 6. Limitations and Bias
-
-Where does your recommender struggle
-
-Some prompts:
-- Does it ignore some genres or moods
-- Does it treat all users as if they have the same taste shape
-- Is it biased toward high energy or one genre by default
-- How could this be unfair if used in a real product
-
----
-
-## 7. Evaluation
-
-How did you check your system
-
-Examples:
-- You tried multiple user profiles and wrote down whether the results matched your expectations
-- You compared your simulation to what a real app like Spotify or YouTube tends to recommend
-- You wrote tests for your scoring logic
-
-You do not need a numeric metric, but if you used one, explain what it measures.
-
----
-
-## 8. Future Work
-
-If you had more time, how would you improve this recommender
-
-Examples:
-
-- Add support for multiple users and "group vibe" recommendations
-- Balance diversity of songs instead of always picking the closest match
-- Use more features, like tempo ranges or lyric themes
-
----
-
-## 9. Personal Reflection
-
-A few sentences about what you learned:
-
-- What surprised you about how your system behaved
-- How did building this change how you think about real music recommenders
-- Where do you think human judgment still matters, even if the model seems "smart"
 
